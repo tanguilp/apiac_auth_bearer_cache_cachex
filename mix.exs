@@ -7,7 +7,11 @@ defmodule APISexAuthBearerCacheCachex.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      docs: [
+        main: "readme",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -23,7 +27,8 @@ defmodule APISexAuthBearerCacheCachex.MixProject do
   defp deps do
     [
       {:apisex_auth_bearer, github: "tanguilp/apisex_auth_bearer", tag: "master"},
-      {:cachex, "~> 3.1"}
+      {:cachex, "~> 3.1"},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
   end
 end

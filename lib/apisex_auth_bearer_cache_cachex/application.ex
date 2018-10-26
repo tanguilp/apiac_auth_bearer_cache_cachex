@@ -6,11 +6,10 @@ defmodule APISexAuthBearerCacheCachex.Application do
   import Supervisor.Spec
 
   def start(_type, _args) do
-    cache_opts = Application.get_env(:apisex_auth_bearer_cache_cachex, :cache_opts, [])
-    server_opts = Application.get_env(:apisex_auth_bearer_cache_cachex, :server_opts, [])
+    cachex_opts = Application.get_env(:apisex_auth_bearer_cache_cachex, :cache_opts, [])
 
     children = [
-      worker(Cachex, [:apisex_auth_bearer_cache_cachex, [cache_opts, server_opts]])
+      worker(Cachex, [:apisex_auth_bearer_cache_cachex, cachex_opts])
     ]
 
     opts = [strategy: :one_for_one, name: APISexAuthBearerCacheCachex.Supervisor]

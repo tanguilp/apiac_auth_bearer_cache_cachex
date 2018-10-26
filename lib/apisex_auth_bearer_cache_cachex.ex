@@ -7,20 +7,26 @@ defmodule APISexAuthBearerCacheCachex do
   Cachex implementation of the `APISexAuthBearer.Cache` behaviour
   """
 
-  @doc false
+  @doc """
+  `APISexAuthBearer.Cache` callback implementation
+  """
   @impl true
   def init_opts(opts) do
     # cachex ttl is in ms
     Keyword.put(opts, :ttl, opts[:ttl] * 1000)
   end
 
-  @doc false
+  @doc """
+  `APISexAuthBearer.Cache` callback implementation
+  """
   @impl true
   def put(bearer, attributes, opts) do
     Cachex.put(@cache, bearer, attributes, opts)
   end
 
-  @doc false
+  @doc """
+  `APISexAuthBearer.Cache` callback implementation
+  """
   @impl true
   def get(bearer, _opts) do
     case Cachex.get(@cache, bearer) do

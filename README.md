@@ -1,21 +1,43 @@
 # APISexAuthBearerCacheCachex
 
-**TODO: Add description**
+An application implementing the `APISexAuthBearer.Cache` behaviour with Cachex
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `apisex_auth_bearer_cache_cachex` to your list of dependencies in `mix.exs`:
+To use it in your application as your cache for the `APISexAuthBearer` plug, add this to your
+dependencies:
 
 ```elixir
-def deps do
-  [
-    {:apisex_auth_bearer_cache_cachex, "~> 0.1.0"}
-  ]
-end
+{:apisex_auth_bearer_cache_cachex, github: "tanguilp/apisex_auth_bearer_cache_cachex"}
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/apisex_auth_bearer_cache_cachex](https://hexdocs.pm/apisex_auth_bearer_cache_cachex).
+and then reference this cache implementation in your plug options:
+```elixir
+Plug APISexAuthBearer, bearer_validator: {APISexAuthBearer,[...]},
+		       cache: {APISexAuthBearerCacheCachex, [ttl: 60*10]}
 
+```
+
+On startup, this application will automatically start the cache.
+
+It is possible to add Cachex-specific configuration in the config files:
+
+```elixir
+config :apisex_auth_bearer_cache_cachex,
+	cachex_opts: ..., # Cachex cache options
+```
+
+for example
+
+```elixir
+config :apisex_auth_bearer_cache_cachex,
+	cachex_opts: [
+		nodes: [
+			:node1@server1,
+			:node2@server1,
+			:node1@server2,
+			:node1@server3
+		],
+		limit: 200_000
+	]
+```
