@@ -1,20 +1,20 @@
 defmodule APISexAuthBearerCacheCachex.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
 
+  import Supervisor.Spec
+
   def start(_type, _args) do
-    # List all child processes to be supervised
+    cache_opts = Application.get_env(:apisex_auth_bearer_cache_cachex, :cache_opts, [])
+    server_opts = Application.get_env(:apisex_auth_bearer_cache_cachex, :server_opts, [])
+
     children = [
-      # Starts a worker by calling: APISexAuthBearerCacheCachex.Worker.start_link(arg)
-      # {APISexAuthBearerCacheCachex.Worker, arg},
+      worker(Cachex, [:apisex_auth_bearer_cache_cachex, [cache_opts, server_opts]])
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: APISexAuthBearerCacheCachex.Supervisor]
+
     Supervisor.start_link(children, opts)
   end
 end

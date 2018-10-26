@@ -1,18 +1,37 @@
 defmodule APISexAuthBearerCacheCachex do
+  @behaviour APISexAuthBearer.Cache
+
+  @cache :apisex_auth_bearer_cache_cachex
+
   @moduledoc """
-  Documentation for APISexAuthBearerCacheCachex.
+  Cachex implementation of the `APISexAuthBearer.Cache` behaviour
   """
 
-  @doc """
-  Hello world.
+  @doc false
+  @impl true
+  def init_opts(opts) do
+    # cachex ttl is in ms
+    Keyword.put(opts, :ttl, opts[:ttl] * 1000)
+  end
 
-  ## Examples
+  @doc false
+  @impl true
+  def put(bearer, attributes, opts) do
+    Cachex.put(@cache, bearer, attributes, opts)
+  end
 
-      iex> APISexAuthBearerCacheCachex.hello()
-      :world
+  @doc false
+  @impl true
+  def get(bearer, _opts) do
+    case Cachex.get(@cache, bearer) do
+      {:ok, attrs} when not is_nil(attrs) ->
+        attrs
 
-  """
-  def hello do
-    :world
+      {:ok, nil} ->
+        nil
+
+      _ ->
+        nil
+    end
   end
 end
