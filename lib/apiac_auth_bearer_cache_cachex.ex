@@ -1,14 +1,14 @@
-defmodule APISexAuthBearerCacheCachex do
-  @behaviour APISexAuthBearer.Cache
+defmodule APIacAuthBearerCacheCachex do
+  @behaviour APIacAuthBearer.Cache
 
-  @cache :apisex_auth_bearer_cache_cachex
+  @cache :apiac_auth_bearer_cache_cachex
 
   @moduledoc """
-  Cachex implementation of the `APISexAuthBearer.Cache` behaviour
+  Cachex implementation of the `APIacAuthBearer.Cache` behaviour
   """
 
   @doc """
-  `APISexAuthBearer.Cache` callback implementation
+  `APIacAuthBearer.Cache` callback implementation
   """
   @impl true
   def init_opts(opts) do
@@ -17,7 +17,7 @@ defmodule APISexAuthBearerCacheCachex do
   end
 
   @doc """
-  `APISexAuthBearer.Cache` callback implementation
+  `APIacAuthBearer.Cache` callback implementation
   """
   @impl true
   def put(bearer, attributes, opts) do
@@ -25,7 +25,7 @@ defmodule APISexAuthBearerCacheCachex do
   end
 
   @doc """
-  `APISexAuthBearer.Cache` callback implementation
+  `APIacAuthBearer.Cache` callback implementation
   """
   @impl true
   def get(bearer, _opts) do
