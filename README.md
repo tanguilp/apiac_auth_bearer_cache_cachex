@@ -8,7 +8,11 @@ To use it in your application as your cache for the `APIacAuthBearer` plug, add 
 dependencies:
 
 ```elixir
-{:apiac_auth_bearer_cache_cachex, github: "tanguilp/apiac_auth_bearer_cache_cachex", tag: "0.2.0"}
+def deps do
+  [
+    {:apiac_auth_bearer_cache_cachex, "~> 1.0"}
+  ]
+end
 ```
 
 and then reference this cache implementation in your plug options:
